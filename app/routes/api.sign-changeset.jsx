@@ -16,6 +16,8 @@ export const action = async ({ request }) => {
 
   const body = await request.json();
 
+  console.log("getSelectedOffer", body)
+
   const selectedOffer = getSelectedOffer(body.changes);
 
   const payload = {
