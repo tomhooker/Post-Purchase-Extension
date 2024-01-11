@@ -2,18 +2,18 @@
 
 name = "post-purchase"
 client_id = "2b05c2c0be5a7df132412f6ebaf5955d"
-application_url = "https://mistake-defeat-consistency-area.trycloudflare.com"
+application_url = "https://regional-sought-deal-partnerships.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products, read_products"
+scopes = "write_products,read_products"
 
 [auth]
 redirect_urls = [
-  "https://mistake-defeat-consistency-area.trycloudflare.com/auth/callback",
-  "https://mistake-defeat-consistency-area.trycloudflare.com/auth/shopify/callback",
-  "https://mistake-defeat-consistency-area.trycloudflare.com/api/auth/callback"
+  "https://regional-sought-deal-partnerships.trycloudflare.com/auth/callback",
+  "https://regional-sought-deal-partnerships.trycloudflare.com/auth/shopify/callback",
+  "https://regional-sought-deal-partnerships.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

@@ -16,9 +16,11 @@ export const action = async ({ request }) => {
 
   const body = await request.json();
 
-  console.log("getSelectedOffer", body)
+  console.log("getSelectedOffer", body);
 
   const selectedOffer = getSelectedOffer(body.changes);
+
+  console.log("selectedOffer", selectedOffer);  
 
   const payload = {
     iss: process.env.SHOPIFY_API_KEY,
@@ -28,6 +30,11 @@ export const action = async ({ request }) => {
     changes: selectedOffer?.changes,
   };
 
+  console.log("payload", payload);
+
   const token = jwt.sign(payload, process.env.SHOPIFY_API_SECRET);
+
+  console.log("token", token);
+
   return cors(json({ token }));
 };

@@ -11,12 +11,32 @@ const OFFERS = [
       changes: [
         {
           type: "add_variant",
-          variantID: 42939514028211, // Replace with the variant ID.
+          variantID: 40193730773067, // Replace with the variant ID.
           quantity: 1,
           discount: {
             value: 15,
             valueType: "percentage",
             title: "15% off",
+          },
+        },
+        {
+          type: "add_variant",
+          variantID: 40193730805835, // Replace with the variant ID.
+          quantity: 2,
+          discount: {
+            value: 25,
+            valueType: "percentage",
+            title: "25% off",
+          },
+        },
+        {
+          type: "add_variant",
+          variantID: 40193730838603, // Replace with the variant ID.
+          quantity: 3,
+          discount: {
+            value: 35,
+            valueType: "percentage",
+            title: "35% off",
           },
         },
       ],
@@ -33,7 +53,7 @@ const OFFERS = [
       changes: [
         {
           type: "add_variant",
-          variantID: 42939514028211, // Replace with the variant ID.
+          variantID: 40193730805835, // Replace with the variant ID.
           quantity: 1,
           discount: {
             value: 90,
