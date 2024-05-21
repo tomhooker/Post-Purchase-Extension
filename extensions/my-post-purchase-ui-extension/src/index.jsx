@@ -4,22 +4,20 @@ import {
   render,
   useExtensionInput,
   BlockStack,
-  Button,
+  View,
   CalloutBanner,
   Heading,
   Image,
   Text,
   TextContainer,
-  Separator,
   Tiles,
   TextBlock,
   Layout,
+  InlineStack,
 } from "@shopify/post-purchase-ui-extensions-react";
 
-// For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://regional-sought-deal-partnerships.trycloudflare.com";
+const APP_URL = "https://sao-mysimon-boys-hdtv.trycloudflare.com";
 
-// Preload data from your app server to ensure that the extension loads quickly.
 extend(
   "Checkout::PostPurchase::ShouldRender",
   async ({ inputData, storage }) => {
@@ -34,7 +32,9 @@ extend(
       }),
     }).then((response) => response.json());
 
-    // Store the offer in the extension's storage.
+    // Log the postPurchaseOffer response
+    console.log("Post purchase offer response:", postPurchaseOffer);
+
     await storage.update(postPurchaseOffer);
 
     // For local development, always show the post-purchase page
@@ -51,29 +51,26 @@ export function App() {
   const [calculatedPurchase, setCalculatedPurchase] = useState();
 
   const { offers } = storage.initialData;
+  console.log("offers storage", storage);
 
-  // New state variable for tracking the current offer index
-  // The current offer index is the index of the offer that is currently being displayed
   const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
-  // Update the purchaseOption to reflect the current offer index
-  // The purchaseOption is the offer that is currently being displayed
+  console.log("currentOfferIndex", currentOfferIndex);
   const purchaseOption = offers[currentOfferIndex];
+  console.log("purchaseOption", purchaseOption);
 
-  // Define the changes that you want to make to the purchase, including the discount to the product.
   useEffect(() => {
     async function calculatePurchase() {
-      // Call Shopify to calculate the new price of the purchase, if the above changes are applied.
       const result = await calculateChangeset({
         changes: purchaseOption.changes,
       });
 
+      console.log("calculatedPurchaseResult", result);
       setCalculatedPurchase(result.calculatedPurchase);
       setLoading(false);
     }
 
-    console.log(`Loading offer details for offer index: ${currentOfferIndex}`);
     calculatePurchase();
-  }, [calculateChangeset, purchaseOption.changes, currentOfferIndex]);
+  }, [calculateChangeset, purchaseOption.changes]);
 
   // Extract values from the calculated purchase.
   const shipping =
@@ -88,9 +85,10 @@ export function App() {
   const originalPrice =
     calculatedPurchase?.updatedLineItems[0].priceSet.presentmentMoney.amount;
 
+  console.log("calculatedPurchase", calculatedPurchase);
   async function acceptOffer() {
+    console.log("offersssss storage", storage);
     setLoading(true);
-    console.log(`Accepting offer: ${currentOfferIndex}`);
 
     // Make a request to your app server to sign the changeset with your app's API secret key.
     const token = await fetch(`${APP_URL}/api/sign-changeset`, {
@@ -102,28 +100,26 @@ export function App() {
       body: JSON.stringify({
         referenceId: inputData.initialPurchase.referenceId,
         changes: purchaseOption.id,
+        storage: storage,
       }),
     })
       .then((response) => response.json())
       .then((response) => response.token)
       .catch((e) => console.log(e));
 
-    // Make a request to Shopify servers to apply the changeset.
     await applyChangeset(token);
-
-    // Redirect to the thank-you page.
+    console.log("applyChangeset token", token);
     done();
   }
 
-  // Redirect to the thank-you page.
   function declineOffer() {
     setLoading(true);
 
-    // Check if there is another offer available
     if (currentOfferIndex < offers.length - 1) {
-      // Move to the next offer
       setCurrentOfferIndex(currentOfferIndex + 1);
-      console.log(`Offer declined. Moving to next offer: ${currentOfferIndex + 1}`);
+      console.log(
+        `Offer declined. Moving to next offer: ${currentOfferIndex + 1}`
+      );
     } else {
       // No more offers, go to the thank you page
       console.log("No more offers. Redirecting to the thank you page.");

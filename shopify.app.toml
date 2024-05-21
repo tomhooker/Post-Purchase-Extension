@@ -2,18 +2,18 @@
 
 name = "post-purchase"
 client_id = "2b05c2c0be5a7df132412f6ebaf5955d"
-application_url = "https://regional-sought-deal-partnerships.trycloudflare.com"
+application_url = "https://ws-strips-substantially-relay.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,read_products"
+scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://regional-sought-deal-partnerships.trycloudflare.com/auth/callback",
-  "https://regional-sought-deal-partnerships.trycloudflare.com/auth/shopify/callback",
-  "https://regional-sought-deal-partnerships.trycloudflare.com/api/auth/callback"
+  "https://ws-strips-substantially-relay.trycloudflare.com/auth/callback",
+  "https://ws-strips-substantially-relay.trycloudflare.com/auth/shopify/callback",
+  "https://ws-strips-substantially-relay.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -24,4 +24,4 @@ embedded = false
 
 [build]
 automatically_update_urls_on_dev = true
-dev_store_url = "pluspostpurchase.myshopify.com"
+dev_store_url = "otrcheckout.myshopify.com"
